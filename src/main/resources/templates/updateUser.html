@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改</title>
+    <link rel="stylesheet" th:href="@{|/css/bootstrap.css|}"/>
+    <script type="text/javascript" th:src="@{|/js/jquery-1.12.4.js|}"></script>
+    <script type="text/javascript" th:src="@{|/js/bootstrap.js|}"></script>
+</head>
+<script type="text/javascript">
+    function sub() {
+        var name = document.getElementById("name").value;
+        var birthday = document.getElementById("birthday").value;
+        if (name == "" || name == null){
+            alert("昵称不能为空")
+            return false;
+        }
+        if (birthday == "" || birthday == null){
+            alert("生日不能为空！")
+            return false;
+        }
+        return true;
+    }
+</script>
+<body>
+
+<div class="container">
+    <br/>
+    <form class="form-horizontal col-sm-6 col-sm-offset-3" role="form" action="/Emp/register">
+        <input type="hidden" class="form-control" name="id" id="id" th:value="${employees.id}" />
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="name" th:value="${employees.name}">
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="birthday" class="col-sm-2 control-label">生日</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="birthday" name="birthday"  th:value="${employees.birthday}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="depId" class="col-sm-2 control-label">部门</label>
+            <div class="col-sm-10">
+                <!--<select id="Dep_id">
+                    <option value ="">---请选择---</option>
+                    <option value ="1001">混吃等死部</option>
+                    <option value="1002">间接性发愤图强部</option>
+                    <option value="1003">彻底废了部</option>
+                </select>-->
+                <select id="depId" name="depId" lay-search="" class="form-control input1" >
+                    <option value="">请选择</option>
+                    <option th:each="item:${list}"
+                            th:value="${item.id}"
+                            name="depId"
+                            th:text="${item.name}"
+                            th:selected="${employees.id==item.id}?'selected':''">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label for="depId" class="col-sm-2 control-label">部门</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" name="depId" id="depid" value="1001" checked> 混吃等死部
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="depId" value="1002"> 间接性发愤图强部
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="depId" value="1003"> 彻底废了部
+                </label>
+            </div>
+        </div>-->
+        <div class="form-group text-center">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success btn-lg">添加 </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>
